@@ -1,4 +1,4 @@
-package com.belyakov.testproject.ui.theme
+package com.belyakov.testproject.base.presentation.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

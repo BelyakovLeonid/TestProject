@@ -1,17 +1,22 @@
-package com.belyakov.testproject.ui.theme
+package com.belyakov.testproject.base.presentation.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.belyakov.testproject.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
-    body1 = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+    defaultFontFamily = FontFamily(
+        Font(R.font.montserrat_thin, FontWeight.Thin),
+        Font(R.font.montserrat_light, FontWeight.Light),
+        Font(R.font.montserrat_regular, FontWeight.Normal),
+        Font(R.font.montserrat_medium, FontWeight.Medium),
+        Font(R.font.montserrat_semibold, FontWeight.SemiBold),
+        Font(R.font.montserrat_bold, FontWeight.Bold),
     )
     /* Other default text styles to override
     button = TextStyle(
