@@ -1,4 +1,4 @@
-package com.belyakov.testproject.main.presentation.view
+package com.belyakov.testproject.main.presentation.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.SubcomposeAsyncImage
+import coil.compose.AsyncImage
 import com.belyakov.testproject.base.presentation.theme.Cyan100
 import com.belyakov.testproject.base.presentation.theme.Gray500
 import com.belyakov.testproject.main.presentation.model.NewsUiModel
@@ -36,16 +35,15 @@ fun NewsItem(
     Card(
         elevation = 4.dp,
         shape = RoundedCornerShape(12.dp),
-        modifier = modifier.clickable { onNewsClick() }
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(itemHeight)
+                .clickable { onNewsClick() }
         ) {
-            SubcomposeAsyncImage(
+            AsyncImage(
                 model = newsModel.imageUrl,
-                loading = { CircularProgressIndicator() },
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.size(itemHeight),
                 contentDescription = null

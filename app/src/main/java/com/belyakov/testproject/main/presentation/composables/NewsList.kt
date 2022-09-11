@@ -1,6 +1,7 @@
-package com.belyakov.testproject.main.presentation.view
+package com.belyakov.testproject.main.presentation.composables
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,7 +19,8 @@ fun NewsList(
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
+        contentPadding = PaddingValues(all = 12.dp)
     ) {
         items(
             items = news,
@@ -37,7 +39,7 @@ fun getFakeNewsModel(id: Int = 1) = NewsUiModel(
     title = "This news is fake, do not trust it please. This news is fake, do not trust it please.",
     author = "CNN",
     date = "1 day ago",
-    imageUrl = "https://ibb.co/TtRWp9j",
+    imageUrl = "https://i.ibb.co/qp9JXTq/test-image.jpg",
 )
 
 @Preview
