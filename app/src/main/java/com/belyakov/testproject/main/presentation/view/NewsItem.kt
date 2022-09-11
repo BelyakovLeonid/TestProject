@@ -1,6 +1,5 @@
 package com.belyakov.testproject.main.presentation.view
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,19 +8,19 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.belyakov.testproject.R
+import coil.compose.SubcomposeAsyncImage
 import com.belyakov.testproject.base.presentation.theme.Cyan100
 import com.belyakov.testproject.base.presentation.theme.Gray500
 import com.belyakov.testproject.main.presentation.model.NewsUiModel
@@ -44,13 +43,12 @@ fun NewsItem(
                 .fillMaxWidth()
                 .height(itemHeight)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.test_image),
-                contentDescription = null,
+            SubcomposeAsyncImage(
+                model = newsModel.imageUrl,
+                loading = { CircularProgressIndicator() },
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .height(itemHeight)
-                    .width(itemHeight)
+                modifier = Modifier.size(itemHeight),
+                contentDescription = null
             )
             Column(
                 verticalArrangement = Arrangement.SpaceBetween,
@@ -87,19 +85,21 @@ fun NewsItem(
     }
 }
 
-@Preview
+@Preview(locale = "en")
 @Composable
 fun NewsItemPreview() {
-    val fakeNewsModel = NewsUiModel(
-        id = 1,
-        title = "This news is fake, do not trust it please. This news is fake, do not trust it please.",
-        author = "CNN",
-        date = "1 day ago",
-        imageUrl = "",
-    )
-
     NewsItem(
-        newsModel = fakeNewsModel,
+        newsModel = getFakeNewsModel(),
+        modifier = Modifier,
+        onNewsClick = {}
+    )
+}
+
+@Preview(locale = "ar")
+@Composable
+fun NewsItemRTLPreview() {
+    NewsItem(
+        newsModel = getFakeNewsModel(),
         modifier = Modifier,
         onNewsClick = {}
     )
