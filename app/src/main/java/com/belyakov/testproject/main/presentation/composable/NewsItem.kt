@@ -1,4 +1,4 @@
-package com.belyakov.testproject.main.presentation.composables
+package com.belyakov.testproject.main.presentation.composable
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

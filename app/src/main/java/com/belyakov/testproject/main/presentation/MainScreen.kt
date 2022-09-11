@@ -17,10 +17,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.belyakov.testproject.R
-import com.belyakov.testproject.main.presentation.composables.NewsList
-import com.belyakov.testproject.main.presentation.composables.getFakeNewsModel
+import com.belyakov.testproject.main.presentation.composable.MainAppBar
+import com.belyakov.testproject.main.presentation.composable.NewsList
+import com.belyakov.testproject.main.presentation.composable.getFakeNewsModel
 
 @Composable
 fun MainScreen(
@@ -29,34 +31,7 @@ fun MainScreen(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        TopAppBar {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-            ) {
-                Text(
-                    text = stringResource(id = R.string.main_screen_title),
-                    style = MaterialTheme.typography.subtitle1,
-                    modifier = Modifier.align(Alignment.Center)
-                )
-                IconButton(
-                    onClick = {},
-                    modifier = Modifier.align(Alignment.CenterEnd)
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.FilterAlt,
-                        contentDescription = stringResource(R.string.main_screen_filter)
-                    )
-                    Canvas(
-                        modifier = Modifier
-                            .size(10.dp)
-                            .align(Alignment.TopEnd),
-                        onDraw = {
-                            drawCircle(color = Color.Red)
-                        }
-                    )
-                }
-            }
-        }
+        MainAppBar()
         NewsList(
             news = listOf(
                 getFakeNewsModel(1),
@@ -70,4 +45,10 @@ fun MainScreen(
             onNewsClick = {} //viewModel::onNewsClick
         )
     }
+}
+
+@Preview
+@Composable
+fun MainScreenPreview() {
+    MainScreen()
 }

@@ -1,4 +1,4 @@
-package com.belyakov.testproject.main.presentation.composables
+package com.belyakov.testproject.main.presentation.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues

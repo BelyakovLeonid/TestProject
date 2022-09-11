@@ -3,4 +3,6 @@
 
     <string name="main_screen_filter">Filter</string>
     <string name="main_screen_title">All News</string>
+
+    <string name="detailed_screen_back">Back</string>
 </resources>
