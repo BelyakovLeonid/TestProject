@@ -27,7 +27,7 @@ import com.belyakov.testproject.main.presentation.model.NewsUiModel
 @Composable
 fun NewsDetailedTop(
     newsModel: NewsUiModel,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier.height(360.dp)) {
         AsyncImage(
