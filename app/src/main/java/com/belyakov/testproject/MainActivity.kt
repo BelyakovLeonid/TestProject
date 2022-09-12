@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.belyakov.testproject.base.presentation.theme.TestProjectTheme
+import com.belyakov.testproject.detail.presentation.NewsDetailScreen
+import com.belyakov.testproject.detail.presentation.NewsDetailScreenPreview
 import com.belyakov.testproject.main.presentation.MainScreen
 
 class MainActivity : ComponentActivity() {
@@ -11,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TestProjectTheme {
-                MainScreen()
+                NewsDetailScreen()
             }
         }
     }

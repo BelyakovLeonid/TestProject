@@ -29,10 +29,10 @@ fun NewsDetailedTop(
     newsModel: NewsUiModel,
     modifier: Modifier = Modifier
 ) {
-    Box(modifier = modifier.height(360.dp)) {
+    Box(modifier = modifier.heightIn(min = 360.dp)) {
         AsyncImage(
             model = newsModel.imageUrl,
-            contentScale = ContentScale.FillWidth,
+            contentScale = ContentScale.Crop,
             contentDescription = null,
             modifier = Modifier
                 .height(300.dp)
@@ -43,7 +43,7 @@ fun NewsDetailedTop(
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(horizontal = 24.dp)
+                .padding(horizontal = 12.dp)
                 .heightIn(min = 120.dp)
                 .fillMaxWidth()
         ) {
