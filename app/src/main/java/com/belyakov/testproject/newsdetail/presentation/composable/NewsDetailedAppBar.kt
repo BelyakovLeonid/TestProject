@@ -26,7 +26,7 @@ fun NewsDetailedAppBar(
         ) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
-                contentDescription = stringResource(R.string.detailed_screen_back)
+                contentDescription = stringResource(R.string.detailed_news_screen_back)
             )
         }
         Text(

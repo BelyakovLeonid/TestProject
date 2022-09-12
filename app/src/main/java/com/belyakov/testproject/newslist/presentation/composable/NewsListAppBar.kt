@@ -22,22 +22,23 @@ import com.belyakov.testproject.R
 
 @Composable
 fun NewsListAppBar(
+    onNavigateToFilter: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     TopAppBar(modifier = modifier) {
         Box(modifier = Modifier.fillMaxSize()) {
             Text(
-                text = stringResource(id = R.string.main_screen_title),
+                text = stringResource(id = R.string.news_list_screen_title),
                 style = MaterialTheme.typography.subtitle1,
                 modifier = Modifier.align(Alignment.Center)
             )
             IconButton(
-                onClick = {},
+                onClick = onNavigateToFilter,
                 modifier = Modifier.align(Alignment.CenterEnd)
             ) {
                 Icon(
                     imageVector = Icons.Outlined.FilterAlt,
-                    contentDescription = stringResource(R.string.main_screen_filter)
+                    contentDescription = stringResource(R.string.news_list_screen_filter)
                 )
                 Canvas(
                     modifier = Modifier
@@ -54,6 +55,8 @@ fun NewsListAppBar(
 
 @Preview
 @Composable
-fun MainAppBarPreview() {
-    MainAppBarPreview()
+fun NewsListAppBarPreview() {
+    NewsListAppBar(
+        onNavigateToFilter = {}
+    )
 }

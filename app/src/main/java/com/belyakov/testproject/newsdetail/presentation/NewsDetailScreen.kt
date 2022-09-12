@@ -15,7 +15,7 @@ object NewsDetailDestination: TestNewsDestination(route = "newsdetail")
 
 @Composable
 fun NewsDetailScreen(
-    onBackPressed: () -> Unit
+    onBackClick: () -> Unit
     //    viewModel: MainViewModel by viewModel
 ) {
     val fakeNews = getFakeNewsModel()
@@ -23,7 +23,7 @@ fun NewsDetailScreen(
     Column(modifier = Modifier.fillMaxSize()) {
         NewsDetailedAppBar(
             title = fakeNews.title,
-            onBackClick = onBackPressed
+            onBackClick = onBackClick
         )
         NewsDetailedTop(newsModel = fakeNews)
         NewsDetailedText(text = fakeNews.title)
@@ -34,6 +34,6 @@ fun NewsDetailScreen(
 @Composable
 fun NewsDetailScreenPreview() {
     NewsDetailScreen(
-        onBackPressed = {}
+        onBackClick = {}
     )
 }

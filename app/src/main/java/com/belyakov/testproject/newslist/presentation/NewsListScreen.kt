@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.belyakov.testproject.base.presentation.navigation.TestNewsDestination
+import com.belyakov.testproject.filter.presentation.NewsFilterDestination
 import com.belyakov.testproject.newsdetail.presentation.NewsDetailDestination
 import com.belyakov.testproject.newslist.presentation.composable.NewsList
 import com.belyakov.testproject.newslist.presentation.composable.NewsListAppBar
@@ -15,13 +16,16 @@ object NewsListDestination : TestNewsDestination(route = "newslist")
 
 @Composable
 fun NewsListScreen(
-    onNavigateToDetails: (TestNewsDestination) -> Unit
+    onNavigateToDetails: (TestNewsDestination) -> Unit,
+    onNavigateToFilter: (TestNewsDestination) -> Unit
     //    viewModel: MainViewModel by viewModel
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        NewsListAppBar()
+        NewsListAppBar(
+            onNavigateToFilter = { onNavigateToFilter(NewsFilterDestination) }
+        )
         NewsList(
             news = listOf(
                 getFakeNewsModel(1),
@@ -41,6 +45,7 @@ fun NewsListScreen(
 @Composable
 fun NewsListScreenPreview() {
     NewsListScreen(
-        onNavigateToDetails = {}
+        onNavigateToDetails = {},
+        onNavigateToFilter = {}
     )
 }

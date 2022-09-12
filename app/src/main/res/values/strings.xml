@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">TestProject</string>
 
-    <string name="main_screen_filter">Filter</string>
-    <string name="main_screen_title">All News</string>
+    <string name="news_list_screen_filter">Filter</string>
+    <string name="news_list_screen_title">All News</string>
 
-    <string name="detailed_screen_back">Back</string>
+    <string name="filter_dialog_confirm">Okay</string>
+
+    <string name="detailed_news_screen_back">Back</string>
 </resources>
