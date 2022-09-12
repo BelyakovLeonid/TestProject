@@ -1,4 +1,4 @@
-package com.belyakov.testproject.main.presentation.model
+package com.belyakov.testproject.newslist.presentation.model
 
 data class NewsUiModel(
     val id: Int,

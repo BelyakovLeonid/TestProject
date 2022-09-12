@@ -1,4 +1,4 @@
-package com.belyakov.testproject.main.presentation.composable
+package com.belyakov.testproject.newslist.presentation.composable
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.belyakov.testproject.R
 
 @Composable
-fun MainAppBar(
+fun NewsListAppBar(
     modifier: Modifier = Modifier
 ) {
     TopAppBar(modifier = modifier) {

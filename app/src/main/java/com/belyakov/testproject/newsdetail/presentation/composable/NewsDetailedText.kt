@@ -1,4 +1,4 @@
-package com.belyakov.testproject.detail.presentation.composable
+package com.belyakov.testproject.newsdetail.presentation.composable
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.belyakov.testproject.base.presentation.theme.Gray500
-import com.belyakov.testproject.main.presentation.composable.getFakeNewsModel
+import com.belyakov.testproject.newslist.presentation.composable.getFakeNewsModel
 
 @Composable
 fun NewsDetailedText(

@@ -1,4 +1,4 @@
-package com.belyakov.testproject.main.presentation.composable
+package com.belyakov.testproject.newslist.presentation.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.belyakov.testproject.main.presentation.model.NewsUiModel
+import com.belyakov.testproject.newslist.presentation.model.NewsUiModel
 
 @Composable
 fun NewsList(

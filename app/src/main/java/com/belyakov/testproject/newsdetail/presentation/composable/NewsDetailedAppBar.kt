@@ -1,4 +1,4 @@
-package com.belyakov.testproject.detail.presentation.composable
+package com.belyakov.testproject.newsdetail.presentation.composable
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
