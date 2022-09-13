@@ -4,7 +4,8 @@ data class NewsListUiState(
     val isLoading: Boolean,
     val isError: Boolean,
     val data: List<NewsUiModel>,
-    val isNextPageLoading: Boolean
+    val isNextPageLoading: Boolean,
+    val hasFilter: Boolean = false
 ) {
 
     companion object {

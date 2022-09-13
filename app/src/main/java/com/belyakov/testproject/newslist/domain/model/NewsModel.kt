@@ -1,12 +1,12 @@
 package com.belyakov.testproject.newslist.domain.model
 
-import org.threeten.bp.LocalDate
+import org.threeten.bp.ZonedDateTime
 
 class NewsModel(
     val id: String,
     val title: String,
     val imageUrl: String?,
-    val publishedAt: LocalDate,
+    val publishedAt: ZonedDateTime,
     val source: String,
     val content: String
 )

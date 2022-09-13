@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,6 +15,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
@@ -33,7 +35,7 @@ fun NewsItem(
     val itemHeight = 120.dp
 
     Card(
-        modifier =modifier,
+        modifier = modifier,
         elevation = 4.dp,
         shape = RoundedCornerShape(12.dp),
     ) {
@@ -63,6 +65,7 @@ fun NewsItem(
                     style = MaterialTheme.typography.h6
                 )
                 Row(
+                    verticalAlignment = Alignment.Bottom,
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
                         .padding(top = 12.dp)
@@ -73,6 +76,7 @@ fun NewsItem(
                         style = MaterialTheme.typography.body2,
                         color = Gray500
                     )
+                    Spacer(modifier = Modifier.size(12.dp))
                     Text(
                         text = newsModel.source,
                         style = MaterialTheme.typography.body2,

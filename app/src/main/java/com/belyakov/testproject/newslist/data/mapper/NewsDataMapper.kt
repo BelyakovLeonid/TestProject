@@ -7,7 +7,7 @@ import com.belyakov.testproject.newslist.data.local.model.NewsEntity
 import com.belyakov.testproject.newslist.data.remote.model.NewsDto
 import com.belyakov.testproject.newslist.data.remote.model.NewsListDto
 import com.belyakov.testproject.newslist.domain.model.NewsModel
-import org.threeten.bp.LocalDate
+import org.threeten.bp.ZonedDateTime
 import javax.inject.Inject
 
 class NewsDataMapper @Inject constructor(
@@ -45,11 +45,7 @@ class NewsDataMapper @Inject constructor(
         )
     }
 
-    private fun parsePublishDate(publishedAt: String?): LocalDate {
-        return if (publishedAt == null) {
-            LocalDate.now()
-        } else {
-            publishedAt.parseZonedDateTimeOrDefault().toLocalDate()
-        }
+    private fun parsePublishDate(publishedAt: String?): ZonedDateTime {
+        return publishedAt?.parseZonedDateTimeOrDefault() ?: ZonedDateTime.now()
     }
 }

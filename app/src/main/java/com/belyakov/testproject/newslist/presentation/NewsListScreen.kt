@@ -26,6 +26,7 @@ fun NewsListScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         NewsListAppBar(
+            uiState.hasFilter,
             onNavigateToFilter = { onNavigateToFilter(NewsFilterDestination) }
         )
         NewsList(

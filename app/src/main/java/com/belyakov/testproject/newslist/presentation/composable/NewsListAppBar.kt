@@ -22,6 +22,7 @@ import com.belyakov.testproject.R
 
 @Composable
 fun NewsListAppBar(
+    hasFilters: Boolean,
     onNavigateToFilter: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -40,14 +41,16 @@ fun NewsListAppBar(
                     imageVector = Icons.Outlined.FilterAlt,
                     contentDescription = stringResource(R.string.news_list_screen_filter)
                 )
-                Canvas(
-                    modifier = Modifier
-                        .size(10.dp)
-                        .align(Alignment.TopEnd),
-                    onDraw = {
-                        drawCircle(color = Color.Red)
-                    }
-                )
+                if(hasFilters){
+                    Canvas(
+                        modifier = Modifier
+                            .size(10.dp)
+                            .align(Alignment.TopEnd),
+                        onDraw = {
+                            drawCircle(color = Color.Red)
+                        }
+                    )
+                }
             }
         }
     }
@@ -57,6 +60,7 @@ fun NewsListAppBar(
 @Composable
 fun NewsListAppBarPreview() {
     NewsListAppBar(
+        hasFilters = true,
         onNavigateToFilter = {}
     )
 }
