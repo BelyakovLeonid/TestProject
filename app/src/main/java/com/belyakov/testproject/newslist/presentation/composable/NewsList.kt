@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,6 +15,7 @@ import com.belyakov.testproject.newslist.presentation.model.NewsUiModel
 fun NewsList(
     news: List<NewsUiModel>,
     onNewsClick: () -> Unit,
+    onShowItemAtPosition: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -22,10 +23,11 @@ fun NewsList(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(all = 12.dp)
     ) {
-        items(
+        itemsIndexed(
             items = news,
-            key = { item -> item.id }
-        ) { item ->
+            key = { _, item -> item.id }
+        ) { index, item ->
+            onShowItemAtPosition(index)
             NewsItem(
                 newsModel = item,
                 onNewsClick = onNewsClick
@@ -34,8 +36,9 @@ fun NewsList(
     }
 }
 
+//todo
 fun getFakeNewsModel(id: Int = 1) = NewsUiModel(
-    id = id,
+    id = "id",
     title = "This news is fake, do not trust it please. This news is fake, do not trust it please.",
     source = "CNN",
     date = "1 day ago",
@@ -49,6 +52,7 @@ fun NewsListPreview() {
     NewsList(
         news = listOf(getFakeNewsModel(1), getFakeNewsModel(2), getFakeNewsModel(3)),
         modifier = Modifier,
-        onNewsClick = {}
+        onNewsClick = {},
+        onShowItemAtPosition = {}
     )
 }

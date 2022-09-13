@@ -15,20 +15,33 @@ class NewsListRepositoryImpl @Inject constructor(
     private val mapper: NewsDataMapper
 ) : NewsListRepository {
 
+    private var hasNextPage = true
+    private var currentPage = 1
+
     override fun getNewsAsFlow(): Flow<List<NewsModel>> {
         return dao.getNewsAsFlow().map { newsList ->
             newsList.map(mapper::map)
         }
     }
 
-    override suspend fun loadNewsFirstPage() {
-        val items = api.loadNewsList(
+    override suspend fun loadNewsNextPage() {
+        val response = api.loadNewsList(
             pageSize = LOAD_PAGE_SIZE,
-            page = 1,
+            page = currentPage,
             country = "us",
             category = null,
         )
-        dao.insertNews(mapper.map(items))
+        val items = mapper.map(response)
+
+        hasNextPage = items.size == LOAD_PAGE_SIZE
+        if (hasNextPage) currentPage++
+
+        if (currentPage == 1) {
+            //todo если совпадает с кешем, то оставляем кеш, иначе чистим
+        } else {
+            // todo просто кладем в кеш
+        }
+        dao.insertNews(items)
     }
 
     private companion object {

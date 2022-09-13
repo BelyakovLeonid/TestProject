@@ -3,8 +3,10 @@
 
     <string name="news_list_screen_filter">Filter</string>
     <string name="news_list_screen_title">All News</string>
+    <string name="news_list_unknown">Unknown</string>
 
     <string name="filter_dialog_confirm">Okay</string>
 
     <string name="detailed_news_screen_back">Back</string>
+
 </resources>

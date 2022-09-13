@@ -1,7 +1,7 @@
 package com.belyakov.testproject.newslist.presentation.model
 
 data class NewsUiModel(
-    val id: Int,
+    val id: String,
     val title: String,
     val source: String,
     val date: String,

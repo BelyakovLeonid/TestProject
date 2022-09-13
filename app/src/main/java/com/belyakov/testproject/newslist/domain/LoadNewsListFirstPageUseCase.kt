@@ -8,6 +8,6 @@ class LoadNewsListFirstPageUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke() {
-        repository.loadNewsFirstPage()
+        return repository.loadNewsNextPage()
     }
 }

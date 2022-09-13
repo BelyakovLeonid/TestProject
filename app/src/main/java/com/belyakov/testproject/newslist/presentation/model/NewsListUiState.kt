@@ -1,10 +1,19 @@
 package com.belyakov.testproject.newslist.presentation.model
 
-sealed interface NewsListUiState {
-    object Loading : NewsListUiState
-    object Empty : NewsListUiState
+data class NewsListUiState(
+    val isLoading: Boolean,
+    val isError: Boolean,
+    val data: List<NewsUiModel>,
+    val isNextPageLoading: Boolean
+) {
 
-    data class Content(
-        val data: List<NewsUiModel>
-    ) : NewsListUiState
+    companion object {
+        val DEFAULT: NewsListUiState
+            get() = NewsListUiState(
+                isLoading = true,
+                isError = false,
+                data = emptyList(),
+                isNextPageLoading = false
+            )
+    }
 }

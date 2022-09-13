@@ -9,8 +9,8 @@ import org.threeten.bp.LocalDate
 @Entity(tableName = NewsEntity.TABLE_NAME)
 @TypeConverters(LocalDateConverter::class)
 class NewsEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val id: String,
     val title: String,
     val imageUrl: String?,
     val publishedAt: LocalDate,

@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface NewsListRepository {
     fun getNewsAsFlow(): Flow<List<NewsModel>>
-    suspend fun loadNewsFirstPage()
+    suspend fun loadNewsNextPage()
 }
