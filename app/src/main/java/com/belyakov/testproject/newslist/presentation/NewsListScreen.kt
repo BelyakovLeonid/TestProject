@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.belyakov.testproject.base.presentation.navigation.TestNewsDestination
 import com.belyakov.testproject.filter.presentation.NewsFilterDestination
@@ -19,7 +20,7 @@ object NewsListDestination : TestNewsDestination(route = "newslist")
 fun NewsListScreen(
     onNavigateToDetails: (TestNewsDestination) -> Unit,
     onNavigateToFilter: (TestNewsDestination) -> Unit,
-    viewModel: NewsListViewModel = viewModel()
+    viewModel: NewsListViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.state.value
 

@@ -6,4 +6,8 @@ import javax.inject.Inject
 class LoadNewsListFirstPageUseCase @Inject constructor(
     private val repository: NewsListRepository
 ) {
+
+    suspend operator fun invoke() {
+        repository.loadNewsFirstPage()
+    }
 }

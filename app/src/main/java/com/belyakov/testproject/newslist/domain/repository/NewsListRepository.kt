@@ -4,6 +4,6 @@ import com.belyakov.testproject.newslist.domain.model.NewsModel
 import kotlinx.coroutines.flow.Flow
 
 interface NewsListRepository {
-    fun getNewsAsFlow(): Flow<NewsModel>
+    fun getNewsAsFlow(): Flow<List<NewsModel>>
     suspend fun loadNewsFirstPage()
 }

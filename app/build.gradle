@@ -71,12 +71,13 @@ dependencies {
 
     //Di
     implementation("com.google.dagger:hilt-android:2.42")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     kapt("com.google.dagger:hilt-android-compiler:2.42")
 
     //Database
     implementation("androidx.room:room-runtime:2.4.3")
-    implementation("androidx.room:room-runtime:2.4.3")
-    kapt("aandroidx.room:room-runtime:2.4.3")
+    implementation("androidx.room:room-ktx:2.4.3")
+    kapt("androidx.room:room-compiler:2.4.3")
 
     //Network
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

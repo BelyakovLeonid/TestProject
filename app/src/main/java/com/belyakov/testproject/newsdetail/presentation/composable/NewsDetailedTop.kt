@@ -68,7 +68,7 @@ fun NewsDetailedTop(
                         color = Gray500
                     )
                     Text(
-                        text = newsModel.author,
+                        text = newsModel.source,
                         style = MaterialTheme.typography.body2,
                         color = Cyan100
                     )

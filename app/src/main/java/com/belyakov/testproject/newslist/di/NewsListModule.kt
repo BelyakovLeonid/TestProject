@@ -1,6 +1,8 @@
 package com.belyakov.testproject.newslist.di
 
+import com.belyakov.testproject.base.data.local.TestNewsDatabase
 import com.belyakov.testproject.newslist.data.NewsListRepositoryImpl
+import com.belyakov.testproject.newslist.data.local.NewsListDao
 import com.belyakov.testproject.newslist.data.remote.NewsListApi
 import com.belyakov.testproject.newslist.domain.repository.NewsListRepository
 import dagger.Binds
@@ -20,9 +22,14 @@ object NewsListModule {
         return retrofit.create()
     }
 
+    @Provides
+    fun providesDao(database: TestNewsDatabase): NewsListDao {
+        return database.getNewsListDao()
+    }
+
     @Module
     @InstallIn(ViewModelComponent::class)
-    interface NewsListBindModule{
+    interface NewsListBindModule {
 
         @Binds
         fun bindRepository(impl: NewsListRepositoryImpl): NewsListRepository

@@ -1,7 +1,6 @@
 package com.belyakov.testproject.base.data.remote.di
 
 import com.belyakov.testproject.base.data.remote.interceptor.ApiKeyInterceptor
-import com.belyakov.testproject.newsdetail.presentation.NewsDetailViewModel_Factory
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Binds
 import dagger.Module
@@ -20,7 +19,7 @@ import javax.inject.Singleton
 
 private const val BASE_URL = "https://newsapi.org/v2/"
 
-@Module
+@Module(includes = [NetworkModule.NetworkBindModule::class])
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
@@ -55,7 +54,7 @@ class NetworkModule {
 
     @Module
     @InstallIn(SingletonComponent::class)
-    interface NetworkBindModule{
+    interface NetworkBindModule {
 
         @Binds
         @IntoSet

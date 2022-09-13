@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface NewsListApi {
 
-    @GET
+    @GET("top-headlines")
     suspend fun loadNewsList(
         @Query("pageSize") pageSize: Int,
         @Query("page") page: Int,

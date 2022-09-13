@@ -37,9 +37,10 @@ fun NewsList(
 fun getFakeNewsModel(id: Int = 1) = NewsUiModel(
     id = id,
     title = "This news is fake, do not trust it please. This news is fake, do not trust it please.",
-    author = "CNN",
+    source = "CNN",
     date = "1 day ago",
     imageUrl = "https://i.ibb.co/qp9JXTq/test-image.jpg",
+    content = "This news is fake, do not trust it please. This news is fake, do not trust it please."
 )
 
 @Preview

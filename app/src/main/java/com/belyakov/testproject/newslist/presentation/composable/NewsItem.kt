@@ -33,6 +33,7 @@ fun NewsItem(
     val itemHeight = 120.dp
 
     Card(
+        modifier =modifier,
         elevation = 4.dp,
         shape = RoundedCornerShape(12.dp),
     ) {
@@ -73,7 +74,7 @@ fun NewsItem(
                         color = Gray500
                     )
                     Text(
-                        text = newsModel.author,
+                        text = newsModel.source,
                         style = MaterialTheme.typography.body2,
                         color = Cyan100
                     )
