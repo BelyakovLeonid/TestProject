@@ -15,11 +15,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.belyakov.testproject.base.presentation.theme.Cyan100
+import com.belyakov.testproject.base.presentation.theme.Gray300
 import com.belyakov.testproject.base.presentation.theme.Gray500
 import com.belyakov.testproject.newslist.presentation.composable.getFakeNewsModel
 import com.belyakov.testproject.newslist.presentation.model.NewsUiModel
@@ -32,6 +34,9 @@ fun NewsDetailedTop(
     Box(modifier = modifier.heightIn(min = 360.dp)) {
         AsyncImage(
             model = newsModel.imageUrl,
+            placeholder = ColorPainter(Gray300),
+            error = ColorPainter(Gray300),
+            fallback = ColorPainter(Gray300),
             contentScale = ContentScale.Crop,
             contentDescription = null,
             modifier = Modifier
