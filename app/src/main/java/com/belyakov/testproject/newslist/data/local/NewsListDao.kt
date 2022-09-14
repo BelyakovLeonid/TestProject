@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NewsListDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNews(news: List<NewsEntity>)
+    suspend fun insert(news: List<NewsEntity>)
 
     @Query("SELECT * FROM ${NewsEntity.TABLE_NAME}")
     fun getNewsAsFlow(): Flow<List<NewsEntity>>

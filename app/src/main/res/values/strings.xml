@@ -19,6 +19,17 @@
     <string name="filter_category_entertainment">Entertainment</string>
 
     <string name="filter_country_title">Choose Country</string>
+    <string name="filter_country_us">USA</string>
+    <string name="filter_country_china">China</string>
+    <string name="filter_country_england">England</string>
+    <string name="filter_country_australia">Australia</string>
+    <string name="filter_country_mexico">Mexico</string>
+    <string name="filter_country_poland">Poland</string>
+    <string name="filter_country_latvia">Latvia</string>
+    <string name="filter_country_new_zealand">New Zealand</string>
+    <string name="filter_country_ukraine">Ukraine</string>
+    <string name="filter_country_russia">Russia</string>
+    <string name="filter_country_brazil">Brazil</string>
 
     <string name="detailed_news_screen_back">Back</string>
 

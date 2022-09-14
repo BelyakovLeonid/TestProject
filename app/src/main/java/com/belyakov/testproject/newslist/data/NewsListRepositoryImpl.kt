@@ -41,7 +41,7 @@ class NewsListRepositoryImpl @Inject constructor(
         } else {
             // todo просто кладем в кеш
         }
-        dao.insertNews(items)
+        dao.insert(items)
     }
 
     private companion object {
