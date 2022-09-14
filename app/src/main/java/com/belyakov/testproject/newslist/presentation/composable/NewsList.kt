@@ -14,6 +14,7 @@ import com.belyakov.testproject.newslist.presentation.model.NewsUiModel
 @Composable
 fun NewsList(
     news: List<NewsUiModel>,
+    isNextPageLoading: Boolean,
     onNewsClick: (String) -> Unit,
     onShowItemAtPosition: (Int) -> Unit,
     modifier: Modifier = Modifier
@@ -33,6 +34,11 @@ fun NewsList(
                 onNewsClick = { onNewsClick(item.id) }
             )
         }
+        if(isNextPageLoading){
+            item {
+                NewsItemLoading()
+            }
+        }
     }
 }
 
@@ -51,6 +57,7 @@ fun getFakeNewsModel(id: Int = 1) = NewsUiModel(
 fun NewsListPreview() {
     NewsList(
         news = listOf(getFakeNewsModel(1), getFakeNewsModel(2), getFakeNewsModel(3)),
+        isNextPageLoading = true,
         modifier = Modifier,
         onNewsClick = {},
         onShowItemAtPosition = {}

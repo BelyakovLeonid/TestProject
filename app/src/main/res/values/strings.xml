@@ -4,6 +4,11 @@
     <string name="news_list_screen_filter">Filter</string>
     <string name="news_list_screen_title">All News</string>
     <string name="news_list_unknown">Unknown</string>
+    <string name="news_list_error">Something went wrong…\nPlease, try to repeat later</string>
+    <string name="news_list_repeat">Repeat</string>
+    <string name="news_list_page_loading">Loading in progress…</string>
+    <string name="news_list_page_empty">There is no news found\nTry to change filters</string>
+    <string name="news_list_page_filters_change">Change</string>
 
     <string name="filter_dialog_confirm">Okay</string>
     <string name="filter_item_checked">Selected</string>

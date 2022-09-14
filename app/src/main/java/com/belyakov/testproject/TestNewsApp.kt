@@ -5,7 +5,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class TestNewsApp: Application(){
+class TestNewsApp : Application() {
 
     override fun onCreate() {
         super.onCreate()

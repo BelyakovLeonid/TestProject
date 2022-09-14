@@ -1,11 +1,11 @@
 package com.belyakov.testproject.newslist.presentation
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.belyakov.testproject.base.presentation.navigation.TestNewsNavigator
+import com.belyakov.testproject.base.utils.launchCatching
 import com.belyakov.testproject.filter.domain.GetDefaultFilterUseCase
 import com.belyakov.testproject.filter.domain.GetSelectedFilterAsFlowUseCase
 import com.belyakov.testproject.filter.presentation.NewsFilterDestination
@@ -17,6 +17,7 @@ import com.belyakov.testproject.newslist.presentation.mapper.NewsUiMapper
 import com.belyakov.testproject.newslist.presentation.model.NewsListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -38,17 +39,20 @@ class NewsListViewModel @Inject constructor(
     val state: State<NewsListUiState> = _state
 
     private var loadingPageJob: Job? = null
+    private var subscribeToNewsJob: Job? = null
 
     private val isPageLoading: Boolean
         get() = loadingPageJob?.isActive == true
 
     init {
-        subscribeToNews()
         subscribeToFilters()
     }
 
+    fun onRepeatClick() {
+        loadFirstPage()
+    }
+
     fun onShowItemAtPosition(position: Int) {
-        Log.d("MyTag", "position = $position lastIndex = ${state.value.data.lastIndex} isPageLoading = $isPageLoading")
         if (position == state.value.data.lastIndex && !isPageLoading) {
             loadNextPage()
         }
@@ -60,19 +64,6 @@ class NewsListViewModel @Inject constructor(
 
     fun onFiltersCLicked() {
         navigator.navigateTo(NewsFilterDestination)
-    }
-
-    private fun subscribeToNews() {
-        getNewsAsFlow()
-            .onEach { news ->
-                _state.value = state.value.copy(
-                    isLoading = false,
-                    isError = false,
-                    isNextPageLoading = false,
-                    data = news.map(mapper::map)
-                )
-            }
-            .launchIn(viewModelScope)
     }
 
     private fun subscribeToFilters() {
@@ -91,16 +82,51 @@ class NewsListViewModel @Inject constructor(
 
     private fun loadNextPage() {
         if (!isPageLoading) {
-            loadingPageJob = viewModelScope.launch {
+            loadingPageJob = viewModelScope.launchCatching(
+                onError = ::onLoadNextPageError
+            ) {
+                _state.value = state.value.copy(isNextPageLoading = true)
                 loadNewsNextPage(state.value.filters)
+                _state.value = state.value.copy(isNextPageLoading = false)
             }
         }
     }
 
     private fun loadFirstPage() {
         loadingPageJob?.cancel()
-        loadingPageJob = viewModelScope.launch {
+        loadingPageJob = viewModelScope.launchCatching(
+            onError = ::onLoadFirstPageError
+        ) {
+            _state.value = state.value.copy(isLoading = true)
             loadNewsFirstPage(state.value.filters)
+            subscribeToNews()
         }
+    }
+
+    private fun subscribeToNews() {
+        subscribeToNewsJob?.cancel()
+        subscribeToNewsJob = getNewsAsFlow()
+            .onEach { news ->
+                _state.value = state.value.copy(
+                    isLoading = false,
+                    isError = false,
+                    isNextPageLoading = false,
+                    data = news.map(mapper::map)
+                )
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private fun onLoadFirstPageError(t: Throwable){
+        _state.value = state.value.copy(
+            isLoading = false,
+            isError = true
+        )
+    }
+
+    private fun onLoadNextPageError(t: Throwable){
+        _state.value = state.value.copy(
+            isNextPageLoading = false
+        )
     }
 }
