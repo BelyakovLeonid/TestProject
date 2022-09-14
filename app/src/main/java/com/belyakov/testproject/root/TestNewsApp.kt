@@ -27,18 +27,17 @@ fun TestNewsApp(
         ) {
             composable(route = NewsListDestination.route) {
                 NewsListScreen(
-                    onNavigateToDetails = appState::onNavigate,
-                    onNavigateToFilter = appState::onNavigate
+                    onNavigate = appState::onNavigate
                 )
             }
             composable(route = NewsDetailDestination.route) {
                 NewsDetailScreen(
-                    onBackClick = appState::onBackClick
+                    onNavigate = appState::onNavigate
                 )
             }
-            dialog(route = NewsFilterDestination.route){
+            dialog(route = NewsFilterDestination.route) {
                 NewsFilterDialog(
-                    onBackClick = appState::onBackClick
+                    onNavigate = appState::onNavigate
                 )
             }
         }

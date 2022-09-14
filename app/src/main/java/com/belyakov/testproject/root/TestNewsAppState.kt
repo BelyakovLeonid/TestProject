@@ -5,6 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.belyakov.testproject.base.presentation.navigation.NavigationCommand
 import com.belyakov.testproject.base.presentation.navigation.TestNewsDestination
 import com.belyakov.testproject.newslist.presentation.NewsListDestination
 
@@ -15,12 +16,11 @@ class TestNewsAppState(
 
     val startDestination = NewsListDestination.route
 
-    fun onNavigate(destination: TestNewsDestination) {
-        navController.navigate(destination.route)
-    }
-
-    fun onBackClick() {
-        navController.popBackStack()
+    fun onNavigate(command: NavigationCommand) {
+        when(command){
+            is NavigationCommand.NavigateBack -> navController.popBackStack()
+            is  NavigationCommand.NavigateToDestination -> navController.navigate(command.destination.route)
+        }
     }
 }
 

@@ -6,9 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.belyakov.testproject.base.presentation.navigation.NavigationCommand
 import com.belyakov.testproject.base.presentation.navigation.TestNewsDestination
-import com.belyakov.testproject.filter.presentation.NewsFilterDestination
-import com.belyakov.testproject.newsdetail.presentation.NewsDetailDestination
+import com.belyakov.testproject.base.utils.SubscribeToNavigation
 import com.belyakov.testproject.newslist.presentation.composable.NewsList
 import com.belyakov.testproject.newslist.presentation.composable.NewsListAppBar
 
@@ -16,22 +16,26 @@ object NewsListDestination : TestNewsDestination(route = "newslist")
 
 @Composable
 fun NewsListScreen(
-    onNavigateToDetails: (TestNewsDestination) -> Unit,
-    onNavigateToFilter: (TestNewsDestination) -> Unit,
+    onNavigate: (NavigationCommand) -> Unit,
     viewModel: NewsListViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.state.value
+
+    SubscribeToNavigation(
+        navigator = viewModel,
+        onNavigate = onNavigate
+    )
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         NewsListAppBar(
             uiState.hasFilter,
-            onNavigateToFilter = { onNavigateToFilter(NewsFilterDestination) }
+            onNavigateToFilter = viewModel::onFiltersCLicked
         )
         NewsList(
             news = uiState.data,
-            onNewsClick = { onNavigateToDetails(NewsDetailDestination) },
+            onNewsClick = viewModel::onItemClicked,
             onShowItemAtPosition = viewModel::onShowItemAtPosition
         )
     }
@@ -41,7 +45,6 @@ fun NewsListScreen(
 @Composable
 fun NewsListScreenPreview() {
     NewsListScreen(
-        onNavigateToDetails = {},
-        onNavigateToFilter = {}
+        onNavigate = {},
     )
 }

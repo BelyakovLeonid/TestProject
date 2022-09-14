@@ -4,6 +4,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.belyakov.testproject.base.presentation.navigation.TestNewsNavigator
+import com.belyakov.testproject.filter.presentation.NewsFilterDestination
+import com.belyakov.testproject.newsdetail.presentation.NewsDetailDestination
 import com.belyakov.testproject.newslist.domain.LoadNewsListFirstPageUseCase
 import com.belyakov.testproject.newslist.domain.NewsListAsFlowUseCase
 import com.belyakov.testproject.newslist.presentation.mapper.NewsUiMapper
@@ -19,8 +22,9 @@ import javax.inject.Inject
 class NewsListViewModel @Inject constructor(
     private val getNewsAsFlow: NewsListAsFlowUseCase,
     private val loadNewsNextPage: LoadNewsListFirstPageUseCase,
-    private val mapper: NewsUiMapper
-) : ViewModel() {
+    private val mapper: NewsUiMapper,
+    private val navigator: TestNewsNavigator
+) : ViewModel(), TestNewsNavigator by navigator {
 
     private val _state = mutableStateOf(NewsListUiState.DEFAULT)
     val state: State<NewsListUiState> = _state
@@ -39,6 +43,14 @@ class NewsListViewModel @Inject constructor(
         if (position == state.value.data.lastIndex && !isPageLoading) {
             loadNextPage()
         }
+    }
+
+    fun onItemClicked() {
+        navigator.navigateTo(NewsDetailDestination)
+    }
+
+    fun onFiltersCLicked() {
+        navigator.navigateTo(NewsFilterDestination)
     }
 
     private fun loadNextPage() {

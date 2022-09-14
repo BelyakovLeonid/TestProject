@@ -16,22 +16,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.belyakov.testproject.R
+import com.belyakov.testproject.base.presentation.navigation.NavigationCommand
 import com.belyakov.testproject.base.presentation.navigation.TestNewsDestination
+import com.belyakov.testproject.filter.presentation.composable.FilterConfirmButton
 import com.belyakov.testproject.filter.presentation.composable.FilterItem
 import com.belyakov.testproject.filter.presentation.composable.FilterTitleItem
-import com.belyakov.testproject.filter.presentation.composable.FilterConfirmButton
 
 object NewsFilterDestination : TestNewsDestination(route = "newsfilter")
 
 @Composable
 fun NewsFilterDialog(
-    onBackClick: () -> Unit,
+    onNavigate: (NavigationCommand) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: NewsFilterViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
 
-    Dialog(onDismissRequest = onBackClick) {
+    Dialog(onDismissRequest = { onNavigate(NavigationCommand.NavigateBack) }) {
         Card(
             shape = RoundedCornerShape(24.dp),
             modifier = modifier
@@ -60,7 +61,7 @@ fun NewsFilterDialog(
                     }
                 }
                 FilterConfirmButton(
-                    onConfirmClicked = { onBackClick() },
+                    onConfirmClicked = { viewModel.onConfirmClicked() },
                     modifier = Modifier.align(Alignment.BottomCenter)
                 )
             }
@@ -72,6 +73,6 @@ fun NewsFilterDialog(
 @Composable
 fun NewsFilterDialogPreview() {
     NewsFilterDialog(
-        onBackClick = {}
+        onNavigate = {}
     )
 }
