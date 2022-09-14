@@ -5,29 +5,35 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.belyakov.testproject.base.presentation.navigation.NavigationCommand
 import com.belyakov.testproject.base.presentation.navigation.TestNewsDestination
+import com.belyakov.testproject.base.utils.encodeUrl
 import com.belyakov.testproject.newsdetail.presentation.composable.NewsDetailedAppBar
 import com.belyakov.testproject.newsdetail.presentation.composable.NewsDetailedText
 import com.belyakov.testproject.newsdetail.presentation.composable.NewsDetailedTop
 
-object NewsDetailDestination : TestNewsDestination(route = "newsdetail")
+class NewsDetailDestination(newsId: String) : TestNewsDestination(
+    route = "newsdetail/${newsId.encodeUrl()}"
+)
 
 @Composable
 fun NewsDetailScreen(
     onNavigate: (NavigationCommand) -> Unit,
-    viewModel: NewsDetailViewModel = viewModel()
+    viewModel: NewsDetailViewModel = hiltViewModel()
 ) {
-    val fakeNews = viewModel.fakeNews
+    val news = viewModel.state.value
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        NewsDetailedAppBar(
-            title = fakeNews.title,
-            onBackClick = { onNavigate(NavigationCommand.NavigateBack) }
-        )
-        NewsDetailedTop(newsModel = fakeNews)
-        NewsDetailedText(text = fakeNews.title)
+    if (news != null) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            NewsDetailedAppBar(
+                title = news.title,
+                onBackClick = { onNavigate(NavigationCommand.NavigateBack) }
+            )
+            NewsDetailedTop(newsModel = news)
+            NewsDetailedText(text = news.content)
+        }
     }
 }
 

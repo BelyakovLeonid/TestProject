@@ -14,7 +14,7 @@ import com.belyakov.testproject.newslist.presentation.model.NewsUiModel
 @Composable
 fun NewsList(
     news: List<NewsUiModel>,
-    onNewsClick: () -> Unit,
+    onNewsClick: (String) -> Unit,
     onShowItemAtPosition: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -30,7 +30,7 @@ fun NewsList(
             onShowItemAtPosition(index)
             NewsItem(
                 newsModel = item,
-                onNewsClick = onNewsClick
+                onNewsClick = { onNewsClick(item.id) }
             )
         }
     }

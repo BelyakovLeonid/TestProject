@@ -45,8 +45,8 @@ class NewsListViewModel @Inject constructor(
         }
     }
 
-    fun onItemClicked() {
-        navigator.navigateTo(NewsDetailDestination)
+    fun onItemClicked(itemId: String) {
+        navigator.navigateTo(NewsDetailDestination(itemId))
     }
 
     fun onFiltersCLicked() {
