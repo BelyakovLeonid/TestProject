@@ -9,6 +9,10 @@ class TestNewsNavigatorImpl @Inject constructor() : TestNewsNavigator {
     private val _navigationCommand = MutableSharedFlow<NavigationCommand>(extraBufferCapacity = 1)
     override val navigationCommand = _navigationCommand.asSharedFlow()
 
+    override fun navigateBack() {
+        _navigationCommand.tryEmit(NavigationCommand.NavigateBack)
+    }
+
     override fun navigateTo(destination: TestNewsDestination) {
         _navigationCommand.tryEmit(NavigationCommand.NavigateToDestination(destination))
     }

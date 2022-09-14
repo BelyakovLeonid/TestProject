@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.belyakov.testproject.R
 import com.belyakov.testproject.base.presentation.navigation.NavigationCommand
 import com.belyakov.testproject.base.presentation.navigation.TestNewsDestination
+import com.belyakov.testproject.base.utils.SubscribeToNavigationCommands
 import com.belyakov.testproject.filter.presentation.composable.FilterConfirmButton
 import com.belyakov.testproject.filter.presentation.composable.FilterItem
 import com.belyakov.testproject.filter.presentation.composable.FilterTitleItem
@@ -32,7 +33,12 @@ fun NewsFilterDialog(
 ) {
     val state = viewModel.state.value
 
-    Dialog(onDismissRequest = { onNavigate(NavigationCommand.NavigateBack) }) {
+    SubscribeToNavigationCommands(
+        navigator = viewModel,
+        onNavigate = onNavigate
+    )
+
+    Dialog(onDismissRequest = viewModel::onDismiss) {
         Card(
             shape = RoundedCornerShape(24.dp),
             modifier = modifier

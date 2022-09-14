@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.Flow
 interface FilterDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(filter: FilterEntity)
+    suspend fun insert(filters: List<FilterEntity>)
 
     @Query("SELECT * FROM ${FilterEntity.TABLE_NAME} WHERE id = :id")
     suspend fun getFilterById(id: String): FilterEntity?
 
-    @Query("SELECT * FROM ${FilterEntity.TABLE_NAME} WHERE id = :id")
-    fun getFilterByIdAsFlow(id: String): Flow<FilterEntity?>
+    @Query("SELECT * FROM ${FilterEntity.TABLE_NAME}")
+    fun getFiltersAsFlow(): Flow<List<FilterEntity>>
 
     @Query("DELETE FROM ${FilterEntity.TABLE_NAME}")
     suspend fun clear()

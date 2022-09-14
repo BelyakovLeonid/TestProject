@@ -14,15 +14,18 @@ class FilterRepositoryImpl @Inject constructor(
     private val mapper: FilterDataMapper
 ) : FilterRepository {
 
-    override fun getSelectedFilterAsFlow(filterType: FilterType): Flow<FilterModel?> {
-        return dao.getFilterByIdAsFlow(filterType.name).map(mapper::map)
+    override fun getSelectedFiltersAsFlow(): Flow<List<FilterModel>> {
+        return dao.getFiltersAsFlow().map { filtersEntities ->
+            filtersEntities.mapNotNull(mapper::map)
+        }
     }
 
     override suspend fun getSelectedFilter(filterType: FilterType): FilterModel? {
         return mapper.map(dao.getFilterById(filterType.name))
     }
 
-    override suspend fun setSelectedFilter(filter: FilterModel) {
-        dao.insert(mapper.map(filter))
+    override suspend fun setSelectedFilters(filters: List<FilterModel>) {
+        val filterEntities = filters.map(mapper::map)
+        dao.insert(filterEntities)
     }
 }

@@ -8,17 +8,16 @@ import androidx.lifecycle.viewModelScope
 import com.belyakov.testproject.base.presentation.navigation.TestNewsNavigator
 import com.belyakov.testproject.filter.domain.GetDefaultFilterUseCase
 import com.belyakov.testproject.filter.domain.GetSelectedFilterAsFlowUseCase
-import com.belyakov.testproject.filter.domain.model.FilterType
 import com.belyakov.testproject.filter.presentation.NewsFilterDestination
 import com.belyakov.testproject.newsdetail.presentation.NewsDetailDestination
 import com.belyakov.testproject.newslist.domain.LoadNewsListFirstPageUseCase
+import com.belyakov.testproject.newslist.domain.LoadNewsListNextPageUseCase
 import com.belyakov.testproject.newslist.domain.NewsListAsFlowUseCase
 import com.belyakov.testproject.newslist.presentation.mapper.NewsUiMapper
 import com.belyakov.testproject.newslist.presentation.model.NewsListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -27,7 +26,8 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsListViewModel @Inject constructor(
     private val getNewsAsFlow: NewsListAsFlowUseCase,
-    private val loadNewsNextPage: LoadNewsListFirstPageUseCase,
+    private val loadNewsFirstPage: LoadNewsListFirstPageUseCase,
+    private val loadNewsNextPage: LoadNewsListNextPageUseCase,
     private val getDefaultFilter: GetDefaultFilterUseCase,
     private val getSelectedFilterAsFlow: GetSelectedFilterAsFlowUseCase,
     private val mapper: NewsUiMapper,
@@ -45,24 +45,10 @@ class NewsListViewModel @Inject constructor(
     init {
         subscribeToNews()
         subscribeToFilters()
-        loadNextPage()
-    }
-
-    private fun subscribeToFilters() {
-        combine(
-            getSelectedFilterAsFlow(FilterType.CATEGORY),
-            getSelectedFilterAsFlow(FilterType.COUNTRY)
-        ) { selectedCategory, selectedCountry ->
-            Pair(selectedCategory, selectedCountry)
-        }
-            .debounce()
-            .onEach { (selectedCategory, selectedCountry) ->
-                Log.d("MyTag", "selectedCategory = ${selectedCategory.name} selectedCountry = ${selectedCountry.name}")
-            }
-            .launchIn(viewModelScope)
     }
 
     fun onShowItemAtPosition(position: Int) {
+        Log.d("MyTag", "position = $position lastIndex = ${state.value.data.lastIndex} isPageLoading = $isPageLoading")
         if (position == state.value.data.lastIndex && !isPageLoading) {
             loadNextPage()
         }
@@ -76,14 +62,6 @@ class NewsListViewModel @Inject constructor(
         navigator.navigateTo(NewsFilterDestination)
     }
 
-    private fun loadNextPage() {
-        if (!isPageLoading) {
-            loadingPageJob = viewModelScope.launch {
-                loadNewsNextPage()
-            }
-        }
-    }
-
     private fun subscribeToNews() {
         getNewsAsFlow()
             .onEach { news ->
@@ -95,5 +73,34 @@ class NewsListViewModel @Inject constructor(
                 )
             }
             .launchIn(viewModelScope)
+    }
+
+    private fun subscribeToFilters() {
+        getSelectedFilterAsFlow()
+            .distinctUntilChanged()
+            .onEach { filters ->
+                val isAnyFilterSelected = filters.any { filter -> filter != getDefaultFilter(filter.type) }
+                _state.value = state.value.copy(
+                    hasFilter = isAnyFilterSelected,
+                    filters = filters
+                )
+                loadFirstPage()
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private fun loadNextPage() {
+        if (!isPageLoading) {
+            loadingPageJob = viewModelScope.launch {
+                loadNewsNextPage(state.value.filters)
+            }
+        }
+    }
+
+    private fun loadFirstPage() {
+        loadingPageJob?.cancel()
+        loadingPageJob = viewModelScope.launch {
+            loadNewsFirstPage(state.value.filters)
+        }
     }
 }

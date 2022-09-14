@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @Composable
-fun SubscribeToNavigation(
+fun SubscribeToNavigationCommands(
     navigator: TestNewsNavigator,
     onNavigate: (NavigationCommand) -> Unit
 ) {

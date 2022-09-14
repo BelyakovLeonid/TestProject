@@ -5,7 +5,7 @@ import com.belyakov.testproject.filter.domain.model.FilterType
 import kotlinx.coroutines.flow.Flow
 
 interface FilterRepository {
-    fun getSelectedFilterAsFlow(filterType: FilterType): Flow<FilterModel?>
+    fun getSelectedFiltersAsFlow(): Flow<List<FilterModel>>
     suspend fun getSelectedFilter(filterType: FilterType): FilterModel?
-    suspend fun setSelectedFilter(filter: FilterModel)
+    suspend fun setSelectedFilters(filters: List<FilterModel>)
 }

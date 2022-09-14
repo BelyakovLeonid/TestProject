@@ -1,6 +1,9 @@
 package com.belyakov.testproject.newslist.data
 
+import com.belyakov.testproject.filter.domain.model.FilterModel
+import com.belyakov.testproject.filter.domain.model.FilterType
 import com.belyakov.testproject.newslist.data.local.NewsListDao
+import com.belyakov.testproject.newslist.data.local.model.NewsEntity
 import com.belyakov.testproject.newslist.data.mapper.NewsDataMapper
 import com.belyakov.testproject.newslist.data.remote.NewsListApi
 import com.belyakov.testproject.newslist.domain.model.NewsModel
@@ -24,24 +27,34 @@ class NewsListRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun loadNewsNextPage() {
+    override suspend fun loadNewsFirstPage(filters: List<FilterModel>) {
+        currentPage = 1
+        hasNextPage = true
+
+        val loadedNews = loadPage(filters)
+        dao.deleteAndInsert(loadedNews)
+    }
+
+    override suspend fun loadNewsNextPage(filters: List<FilterModel>) {
+        if (hasNextPage) {
+            val loadedNews = loadPage(filters)
+            dao.insert(loadedNews)
+        }
+    }
+
+    private suspend fun loadPage(filters: List<FilterModel>): List<NewsEntity> {
         val response = api.loadNewsList(
             pageSize = LOAD_PAGE_SIZE,
             page = currentPage,
-            country = "us",
-            category = null,
+            country = filters.firstOrNull { it.type == FilterType.COUNTRY }?.value,
+            category = filters.firstOrNull { it.type == FilterType.CATEGORY }?.value,
         )
-        val items = mapper.map(response)
+        val entities = mapper.map(response)
 
-        hasNextPage = items.size == LOAD_PAGE_SIZE
+        hasNextPage = entities.size == LOAD_PAGE_SIZE
         if (hasNextPage) currentPage++
 
-        if (currentPage == 1) {
-            //todo если совпадает с кешем, то оставляем кеш, иначе чистим
-        } else {
-            // todo просто кладем в кеш
-        }
-        dao.insert(items)
+        return entities
     }
 
     private companion object {

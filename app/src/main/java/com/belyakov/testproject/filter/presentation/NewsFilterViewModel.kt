@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.belyakov.testproject.base.presentation.navigation.TestNewsNavigator
 import com.belyakov.testproject.filter.domain.GetAvailableFiltersUseCase
 import com.belyakov.testproject.filter.domain.GetSelectedFilterUseCase
-import com.belyakov.testproject.filter.domain.SetSelectedFilterUseCase
+import com.belyakov.testproject.filter.domain.SetSelectedFiltersUseCase
 import com.belyakov.testproject.filter.domain.model.FilterType
 import com.belyakov.testproject.filter.presentation.mapper.FilterUiMapper
 import com.belyakov.testproject.filter.presentation.model.FilterState
@@ -20,10 +20,10 @@ import javax.inject.Inject
 class NewsFilterViewModel @Inject constructor(
     private val getAvailableFilters: GetAvailableFiltersUseCase,
     private val getSelectedFilter: GetSelectedFilterUseCase,
-    private val setSelectedFilter: SetSelectedFilterUseCase,
+    private val setSelectedFilters: SetSelectedFiltersUseCase,
     private val mapper: FilterUiMapper,
     private val navigator: TestNewsNavigator
-) : ViewModel() {
+) : ViewModel(), TestNewsNavigator by navigator {
 
     private val _state = mutableStateOf(getDefaultState())
     val state: State<FilterState> = _state
@@ -49,18 +49,24 @@ class NewsFilterViewModel @Inject constructor(
         )
     }
 
+    fun onConfirmClicked() {
+        viewModelScope.launch {
+            setSelectedFilters(
+                state.value.selectedCategory?.value,
+                state.value.selectedCountry?.value
+            )
+            navigator.navigateBack()
+        }
+    }
+
+    fun onDismiss(){
+        navigator.navigateBack()
+    }
+
     private fun getDefaultState(): FilterState {
         return FilterState(
             categoryFilters = getAvailableFilters(FilterType.CATEGORY).map(mapper::map),
             countryFilters = getAvailableFilters(FilterType.COUNTRY).map(mapper::map)
         )
-    }
-
-    fun onConfirmClicked() {
-        viewModelScope.launch {
-            setSelectedFilter(state.value.selectedCategory?.value)
-            setSelectedFilter(state.value.selectedCountry?.value)
-            navigator.navigateBack()
-        }
     }
 }

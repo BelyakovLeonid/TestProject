@@ -13,9 +13,18 @@ class GetSelectedFilterAsFlowUseCase @Inject constructor(
     private val repository: FilterRepository
 ) {
 
-    operator fun invoke(filterType: FilterType): Flow<FilterModel> {
-        return repository.getSelectedFilterAsFlow(filterType)
-            .map { it ?: getDefaultFilter(filterType) }
-            .distinctUntilChanged()
+    operator fun invoke(): Flow<List<FilterModel>> {
+        return repository.getSelectedFiltersAsFlow()
+            .map { filters ->
+                val fullFiltersList = filters.toMutableList()
+                val filterTypes = FilterType.values()
+                filterTypes.forEach { filterType ->
+                    val isFilterTypeSelected = filters.any { it.type == filterType }
+                    if (!isFilterTypeSelected) {
+                        fullFiltersList.add(getDefaultFilter(filterType))
+                    }
+                }
+                fullFiltersList
+            }
     }
 }

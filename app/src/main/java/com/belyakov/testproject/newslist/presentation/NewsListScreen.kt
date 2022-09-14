@@ -8,7 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.belyakov.testproject.base.presentation.navigation.NavigationCommand
 import com.belyakov.testproject.base.presentation.navigation.TestNewsDestination
-import com.belyakov.testproject.base.utils.SubscribeToNavigation
+import com.belyakov.testproject.base.utils.SubscribeToNavigationCommands
 import com.belyakov.testproject.newslist.presentation.composable.NewsList
 import com.belyakov.testproject.newslist.presentation.composable.NewsListAppBar
 
@@ -21,7 +21,7 @@ fun NewsListScreen(
 ) {
     val uiState = viewModel.state.value
 
-    SubscribeToNavigation(
+    SubscribeToNavigationCommands(
         navigator = viewModel,
         onNavigate = onNavigate
     )

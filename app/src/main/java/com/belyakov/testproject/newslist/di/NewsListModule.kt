@@ -10,8 +10,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Retrofit
 import retrofit2.create
+import javax.inject.Singleton
 
 @Module(includes = [NewsListModule.NewsListBindModule::class])
 @InstallIn(ViewModelComponent::class)
@@ -32,6 +34,7 @@ object NewsListModule {
     interface NewsListBindModule {
 
         @Binds
+        @ViewModelScoped
         fun bindRepository(impl: NewsListRepositoryImpl): NewsListRepository
     }
 }
