@@ -1,10 +1,14 @@
 package com.belyakov.testproject.newslist.presentation
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.belyakov.testproject.base.presentation.navigation.TestNewsNavigator
+import com.belyakov.testproject.filter.domain.GetDefaultFilterUseCase
+import com.belyakov.testproject.filter.domain.GetSelectedFilterAsFlowUseCase
+import com.belyakov.testproject.filter.domain.model.FilterType
 import com.belyakov.testproject.filter.presentation.NewsFilterDestination
 import com.belyakov.testproject.newsdetail.presentation.NewsDetailDestination
 import com.belyakov.testproject.newslist.domain.LoadNewsListFirstPageUseCase
@@ -13,6 +17,8 @@ import com.belyakov.testproject.newslist.presentation.mapper.NewsUiMapper
 import com.belyakov.testproject.newslist.presentation.model.NewsListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -22,11 +28,13 @@ import javax.inject.Inject
 class NewsListViewModel @Inject constructor(
     private val getNewsAsFlow: NewsListAsFlowUseCase,
     private val loadNewsNextPage: LoadNewsListFirstPageUseCase,
+    private val getDefaultFilter: GetDefaultFilterUseCase,
+    private val getSelectedFilterAsFlow: GetSelectedFilterAsFlowUseCase,
     private val mapper: NewsUiMapper,
     private val navigator: TestNewsNavigator
 ) : ViewModel(), TestNewsNavigator by navigator {
 
-    private val _state = mutableStateOf(NewsListUiState.DEFAULT)
+    private val _state = mutableStateOf(NewsListUiState())
     val state: State<NewsListUiState> = _state
 
     private var loadingPageJob: Job? = null
@@ -36,7 +44,22 @@ class NewsListViewModel @Inject constructor(
 
     init {
         subscribeToNews()
+        subscribeToFilters()
         loadNextPage()
+    }
+
+    private fun subscribeToFilters() {
+        combine(
+            getSelectedFilterAsFlow(FilterType.CATEGORY),
+            getSelectedFilterAsFlow(FilterType.COUNTRY)
+        ) { selectedCategory, selectedCountry ->
+            Pair(selectedCategory, selectedCountry)
+        }
+            .debounce()
+            .onEach { (selectedCategory, selectedCountry) ->
+                Log.d("MyTag", "selectedCategory = ${selectedCategory.name} selectedCountry = ${selectedCountry.name}")
+            }
+            .launchIn(viewModelScope)
     }
 
     fun onShowItemAtPosition(position: Int) {

@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.belyakov.testproject.base.presentation.navigation.TestNewsNavigator
 import com.belyakov.testproject.filter.domain.GetAvailableFiltersUseCase
 import com.belyakov.testproject.filter.domain.GetSelectedFilterUseCase
 import com.belyakov.testproject.filter.domain.SetSelectedFilterUseCase
@@ -20,7 +21,8 @@ class NewsFilterViewModel @Inject constructor(
     private val getAvailableFilters: GetAvailableFiltersUseCase,
     private val getSelectedFilter: GetSelectedFilterUseCase,
     private val setSelectedFilter: SetSelectedFilterUseCase,
-    private val mapper: FilterUiMapper
+    private val mapper: FilterUiMapper,
+    private val navigator: TestNewsNavigator
 ) : ViewModel() {
 
     private val _state = mutableStateOf(getDefaultState())
@@ -58,7 +60,7 @@ class NewsFilterViewModel @Inject constructor(
         viewModelScope.launch {
             setSelectedFilter(state.value.selectedCategory?.value)
             setSelectedFilter(state.value.selectedCountry?.value)
-            // todo navigate
+            navigator.navigateBack()
         }
     }
 }
