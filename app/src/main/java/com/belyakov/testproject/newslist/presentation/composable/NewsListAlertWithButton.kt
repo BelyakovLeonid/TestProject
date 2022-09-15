@@ -11,11 +11,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import java.util.Locale
+import com.belyakov.testproject.R
 
 @Composable
 fun NewsListAlertWithButton(
@@ -34,7 +33,7 @@ fun NewsListAlertWithButton(
             style = MaterialTheme.typography.subtitle1,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.margin_regular)))
         Button(onClick = onButtonCLick) {
             Text(
                 text = buttonText.uppercase(),

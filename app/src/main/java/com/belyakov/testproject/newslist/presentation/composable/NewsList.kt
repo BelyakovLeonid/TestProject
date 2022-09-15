@@ -7,8 +7,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.belyakov.testproject.R
 import com.belyakov.testproject.newslist.presentation.model.NewsUiModel
 
 @Composable
@@ -20,9 +21,9 @@ fun NewsList(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.margin_small)),
         modifier = modifier.fillMaxSize(),
-        contentPadding = PaddingValues(all = 12.dp)
+        contentPadding = PaddingValues(all = dimensionResource(R.dimen.margin_regular))
     ) {
         itemsIndexed(
             items = news,
@@ -34,7 +35,7 @@ fun NewsList(
                 onNewsClick = { onNewsClick(item.id) }
             )
         }
-        if(isNextPageLoading){
+        if (isNextPageLoading) {
             item {
                 NewsItemLoading()
             }

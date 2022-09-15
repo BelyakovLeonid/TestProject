@@ -7,10 +7,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.belyakov.testproject.R
 
 @Composable
 fun FilterTitleItem(
@@ -25,7 +25,7 @@ fun FilterTitleItem(
         modifier = modifier
             .fillMaxWidth()
             .background(color = MaterialTheme.colors.background)
-            .padding(12.dp)
+            .padding(all = dimensionResource(R.dimen.margin_regular))
     )
 }
 

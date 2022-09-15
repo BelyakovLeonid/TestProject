@@ -6,8 +6,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.belyakov.testproject.R
 import com.belyakov.testproject.base.presentation.theme.Gray500
 import com.belyakov.testproject.newslist.presentation.composable.getFakeNewsModel
 
@@ -22,7 +23,10 @@ fun NewsDetailedText(
         color = Gray500,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 24.dp)
+            .padding(
+                horizontal = dimensionResource(R.dimen.margin_regular),
+                vertical = dimensionResource(R.dimen.margin_huge)
+            )
     )
 }
 

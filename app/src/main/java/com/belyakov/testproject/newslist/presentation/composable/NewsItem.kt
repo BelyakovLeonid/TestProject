@@ -19,10 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.belyakov.testproject.R
 import com.belyakov.testproject.base.presentation.theme.Cyan100
 import com.belyakov.testproject.base.presentation.theme.Gray300
 import com.belyakov.testproject.base.presentation.theme.Gray500
@@ -34,17 +35,16 @@ fun NewsItem(
     onNewsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val itemHeight = 120.dp
 
     Card(
         modifier = modifier,
-        elevation = 4.dp,
-        shape = RoundedCornerShape(12.dp),
+        elevation = dimensionResource(R.dimen.elevation_regular),
+        shape = RoundedCornerShape(dimensionResource(R.dimen.corner_regular)),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(itemHeight)
+                .height(dimensionResource(R.dimen.news_list_item_height))
                 .clickable { onNewsClick() }
         ) {
             AsyncImage(
@@ -53,7 +53,7 @@ fun NewsItem(
                 error = ColorPainter(Gray300),
                 fallback = ColorPainter(Gray300),
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.size(itemHeight),
+                modifier = Modifier.size(dimensionResource(R.dimen.news_list_item_height)),
                 contentDescription = null
             )
             Column(
@@ -61,7 +61,7 @@ fun NewsItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
-                    .padding(12.dp)
+                    .padding(dimensionResource(R.dimen.margin_regular))
             ) {
                 Text(
                     text = newsModel.title,
@@ -73,7 +73,7 @@ fun NewsItem(
                     verticalAlignment = Alignment.Bottom,
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
-                        .padding(top = 12.dp)
+                        .padding(top = dimensionResource(R.dimen.margin_regular))
                         .fillMaxWidth()
                 ) {
                     Text(
@@ -81,7 +81,7 @@ fun NewsItem(
                         style = MaterialTheme.typography.body2,
                         color = Gray500
                     )
-                    Spacer(modifier = Modifier.size(12.dp))
+                    Spacer(modifier = Modifier.size(dimensionResource(R.dimen.margin_regular)))
                     Text(
                         text = newsModel.source,
                         style = MaterialTheme.typography.body2,

@@ -10,9 +10,9 @@ import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.belyakov.testproject.R
@@ -40,13 +40,13 @@ fun NewsFilterDialog(
 
     Dialog(onDismissRequest = viewModel::onDismiss) {
         Card(
-            shape = RoundedCornerShape(24.dp),
+            shape = RoundedCornerShape(dimensionResource(R.dimen.corner_huge)),
             modifier = modifier
         ) {
             Box {
                 Column(
                     modifier = Modifier
-                        .padding(bottom = 60.dp) // todo 60 вынести
+                        .padding(bottom = dimensionResource(R.dimen.filter_button_height))
                         .verticalScroll(rememberScrollState())
                 ) {
                     FilterTitleItem(title = stringResource(R.string.filter_category_title))
