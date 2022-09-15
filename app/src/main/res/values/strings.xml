@@ -38,6 +38,8 @@
 
     <string name="detailed_news_screen_back">Back</string>
 
+    <string name="news_recently">Recently</string>
+
     <plurals name="news_minutes_before">
         <item quantity="one">%1$d minute ago</item>
         <item quantity="other">%1$d minutes ago</item>

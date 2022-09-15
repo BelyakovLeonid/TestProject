@@ -8,13 +8,13 @@ import org.threeten.bp.ZonedDateTime
 
 @Entity(tableName = NewsEntity.TABLE_NAME)
 @TypeConverters(ZonedDateTimeConverter::class)
-class NewsEntity(
+data class NewsEntity(
     @PrimaryKey
     val id: String,
     val title: String,
     val imageUrl: String?,
     val publishedAt: ZonedDateTime,
-    val source: String,
+    val source: String?,
     val content: String
 ) {
     companion object {

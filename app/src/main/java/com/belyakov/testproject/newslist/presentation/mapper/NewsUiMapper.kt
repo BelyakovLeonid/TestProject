@@ -1,5 +1,6 @@
 package com.belyakov.testproject.newslist.presentation.mapper
 
+import androidx.annotation.VisibleForTesting
 import com.belyakov.testproject.R
 import com.belyakov.testproject.base.domain.repository.ResourceRepository
 import com.belyakov.testproject.newslist.domain.model.NewsModel
@@ -16,18 +17,22 @@ class NewsUiMapper @Inject constructor(
         return NewsUiModel(
             id = model.id,
             title = model.title,
-            source = model.source,
+            source = model.source ?: resourceRepository.getString(R.string.news_list_unknown),
             date = formatPublishDate(model.publishedAt),
             imageUrl = model.imageUrl,
             content = model.content
         )
     }
 
-    private fun formatPublishDate(date: ZonedDateTime): String {
+    @VisibleForTesting
+    fun formatPublishDate(date: ZonedDateTime): String {
         val today = ZonedDateTime.now()
         val passedMinutes = date.until(today, ChronoUnit.MINUTES)
 
         return when {
+            passedMinutes == 0L -> {
+                resourceRepository.getString(R.string.news_recently)
+            }
             passedMinutes < ChronoUnit.HOURS.duration.toMinutes() -> {
                 resourceRepository.getQuantityString(
                     R.plurals.news_minutes_before,

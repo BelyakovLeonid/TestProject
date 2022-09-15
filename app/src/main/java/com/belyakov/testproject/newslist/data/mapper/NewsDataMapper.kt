@@ -1,7 +1,5 @@
 package com.belyakov.testproject.newslist.data.mapper
 
-import com.belyakov.testproject.R
-import com.belyakov.testproject.base.domain.repository.ResourceRepository
 import com.belyakov.testproject.base.utils.parseZonedDateTimeOrDefault
 import com.belyakov.testproject.newslist.data.local.model.NewsEntity
 import com.belyakov.testproject.newslist.data.remote.model.NewsDto
@@ -10,9 +8,7 @@ import com.belyakov.testproject.newslist.domain.model.NewsModel
 import org.threeten.bp.ZonedDateTime
 import javax.inject.Inject
 
-class NewsDataMapper @Inject constructor(
-    private val resourceRepository: ResourceRepository
-) {
+class NewsDataMapper @Inject constructor() {
 
     fun map(entity: NewsEntity): NewsModel {
         return NewsModel(
@@ -40,7 +36,7 @@ class NewsDataMapper @Inject constructor(
             title = newsDto.title,
             imageUrl = newsDto.urlToImage,
             publishedAt = parsePublishDate(newsDto.publishedAt),
-            source = newsDto.source?.name ?: resourceRepository.getString(R.string.news_list_unknown),
+            source = newsDto.source?.name,
             content = newsDto.content,
         )
     }

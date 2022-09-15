@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = FilterEntity.TABLE_NAME)
-class FilterEntity(
+data class FilterEntity(
     @PrimaryKey
     val id: String,
     val value: String?
