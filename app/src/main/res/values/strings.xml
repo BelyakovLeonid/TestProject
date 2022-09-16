@@ -1,3 +1,62 @@
 <resources>
     <string name="app_name">TestProject</string>
+
+    <string name="news_list_screen_filter">Filter</string>
+    <string name="news_list_screen_title">All News</string>
+    <string name="news_list_unknown">Unknown</string>
+    <string name="news_list_error">Something went wrong…\nPlease, try to repeat later</string>
+    <string name="news_list_repeat">Repeat</string>
+    <string name="news_list_page_loading">Loading in progress…</string>
+    <string name="news_list_page_empty">There is no news found\nTry to change filters</string>
+    <string name="news_list_page_filters_change">Change</string>
+
+    <string name="filter_dialog_confirm">Okay</string>
+    <string name="filter_item_checked">Selected</string>
+
+    <string name="filter_category_title">Choose Category</string>
+    <string name="filter_category_all">All News</string>
+    <string name="filter_category_business">Business</string>
+    <string name="filter_category_technology">Technology</string>
+    <string name="filter_category_sports">Sports</string>
+    <string name="filter_category_science">Science</string>
+    <string name="filter_category_health">Health</string>
+    <string name="filter_category_general">General</string>
+    <string name="filter_category_entertainment">Entertainment</string>
+
+    <string name="filter_country_title">Choose Country</string>
+    <string name="filter_country_us">USA</string>
+    <string name="filter_country_china">China</string>
+    <string name="filter_country_england">England</string>
+    <string name="filter_country_australia">Australia</string>
+    <string name="filter_country_mexico">Mexico</string>
+    <string name="filter_country_poland">Poland</string>
+    <string name="filter_country_latvia">Latvia</string>
+    <string name="filter_country_new_zealand">New Zealand</string>
+    <string name="filter_country_ukraine">Ukraine</string>
+    <string name="filter_country_russia">Russia</string>
+    <string name="filter_country_brazil">Brazil</string>
+
+    <string name="detailed_news_screen_back">Back</string>
+
+    <string name="news_recently">Recently</string>
+
+    <plurals name="news_minutes_before">
+        <item quantity="one">%1$d minute ago</item>
+        <item quantity="other">%1$d minutes ago</item>
+    </plurals>
+
+    <plurals name="news_hours_before">
+        <item quantity="one">%1$d hour ago</item>
+        <item quantity="other">%1$d hours ago</item>
+    </plurals>
+
+    <plurals name="news_days_before">
+        <item quantity="one">%1$d day ago</item>
+        <item quantity="other">%1$d days ago</item>
+    </plurals>
+
+    <plurals name="news_years_before">
+        <item quantity="one">%1$d year ago</item>
+        <item quantity="other">%1$d years ago</item>
+    </plurals>
 </resources>
