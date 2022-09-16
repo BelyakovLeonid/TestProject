@@ -1,0 +1,42 @@
+image: nextcloudci/android:android-33
+
+before_script:
+  - chmod +x ./gradlew
+
+stages:
+  - buildStage
+  - testStage
+#  - deployStage
+
+cache:
+  paths:
+    - .gradle/
+
+build-job:
+  interruptible: true
+  stage: buildStage
+  script:
+    - ./gradlew assembleDebug --stacktrace || exit 1
+  artifacts:
+    expire_in: 2 hours
+    paths:
+      - app/build/outputs/apk/debug/app-debug.apk
+
+lint-check-job:
+  interruptible: true
+  stage: buildStage
+  script:
+    ./gradlew lintDebug
+
+
+unit-test-job:
+  interruptible: true
+  stage: testStage
+  script:
+    - ./gradlew testDebugUnitTest --stacktrace
+
+instrumented-test-job:
+  interruptible: true
+  stage: testStage
+  script:
+    ./gradlew connectedDebugAndroidTest

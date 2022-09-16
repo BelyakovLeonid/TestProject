@@ -21,6 +21,14 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        def propertiesFile = new File(rootProject.rootDir, "local.properties")
+        if (propertiesFile.exists()) {// in case of local build
+            buildConfigField "String", "API_KEY", getProps("API_KEY")
+//            buildConfigField("String", "API_KEY", localProperties['API_KEY'])
+        } else { // in case of ci/cd build
+            buildConfigField("String", "API_KEY", System.getenv('API_KEY'))
+        }
     }
 
     buildTypes {
