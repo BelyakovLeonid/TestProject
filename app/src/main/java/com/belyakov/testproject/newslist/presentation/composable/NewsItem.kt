@@ -35,7 +35,6 @@ fun NewsItem(
     onNewsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     Card(
         modifier = modifier,
         elevation = dimensionResource(R.dimen.elevation_regular),

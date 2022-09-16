@@ -10,6 +10,7 @@ import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,7 +42,7 @@ fun NewsFilterDialog(
     Dialog(onDismissRequest = viewModel::onDismiss) {
         Card(
             shape = RoundedCornerShape(dimensionResource(R.dimen.corner_huge)),
-            modifier = modifier
+            modifier = modifier.testTag("FilterScreen")
         ) {
             Box {
                 Column(

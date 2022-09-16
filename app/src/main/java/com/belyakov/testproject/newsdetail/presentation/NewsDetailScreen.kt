@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.belyakov.testproject.base.presentation.navigation.NavigationCommand
 import com.belyakov.testproject.base.presentation.navigation.TestNewsDestination
 import com.belyakov.testproject.base.utils.encodeUrl
@@ -26,7 +26,11 @@ fun NewsDetailScreen(
     val news = viewModel.state.value
 
     if (news != null) {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .testTag("NewsDetailScreen")
+        ) {
             NewsDetailedAppBar(
                 title = news.title,
                 onBackClick = { onNavigate(NavigationCommand.NavigateBack) }

@@ -2,6 +2,7 @@ package com.belyakov.testproject.base.utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import com.belyakov.testproject.base.presentation.navigation.NavigationCommand
 import com.belyakov.testproject.base.presentation.navigation.TestNewsNavigator
 import kotlinx.coroutines.flow.launchIn
